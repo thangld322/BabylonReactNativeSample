@@ -23,7 +23,18 @@ import {Camera} from '@babylonjs/core/Cameras/camera';
 import {ArcRotateCamera} from '@babylonjs/core/Cameras/arcRotateCamera';
 import '@babylonjs/loaders/glTF';
 import {Scene} from '@babylonjs/core/scene';
-import {WebXRSessionManager, WebXRTrackingState} from '@babylonjs/core/XR';
+import {WebXRSessionManager, WebXRTrackingState, WebXRFeatureName, WebXRPlaneDetector} from '@babylonjs/core/XR';
+import {
+  FreeCamera,
+  HemisphericLight,
+  Mesh, 
+  MeshBuilder, 
+  TubeBuilder,
+  TransformNode,
+  Vector3,
+  Quaternion
+} from '@babylonjs/core';
+import * as Earcut from 'earcut';
 
 const EngineScreen: FunctionComponent<ViewProps> = (props: ViewProps) => {
   const engine = useEngine();
@@ -31,6 +42,8 @@ const EngineScreen: FunctionComponent<ViewProps> = (props: ViewProps) => {
   const [xrSession, setXrSession] = useState<WebXRSessionManager>();
   const [trackingState, setTrackingState] = useState<WebXRTrackingState>();
   const [scene, setScene] = useState<Scene>();
+  const [planeMat, setPlaneMat] = useState<any>();
+
 
   const onToggleXr = useCallback(() => {
     (async () => {
@@ -42,6 +55,55 @@ const EngineScreen: FunctionComponent<ViewProps> = (props: ViewProps) => {
             disableDefaultUI: true,
             disableTeleportation: true,
           });
+
+          // Do some plane shtuff.
+          const xrPlanes = xr.baseExperience.featuresManager.enableFeature(
+            WebXRFeatureName.PLANE_DETECTION,
+            "latest"
+          ) as WebXRPlaneDetector;
+          console.log("Enabled plane detection.");
+          const planes: any[] = [];
+
+          xrPlanes.onPlaneAddedObservable.add((webXRPlane) => {
+            if (scene) {
+              console.log("Plane added.");
+              let plane: any = webXRPlane;
+              webXRPlane.polygonDefinition.push(
+                webXRPlane.polygonDefinition[0]
+              );
+              try {
+                plane.mesh = MeshBuilder.CreatePolygon(
+                  "plane",
+                  { shape: plane.polygonDefinition },
+                  scene,
+                  Earcut
+                );
+                let tubeMesh: Mesh = TubeBuilder.CreateTube(
+                  "tube",
+                  {
+                    path: plane.polygonDefinition,
+                    radius: 0.005,
+                    sideOrientation: Mesh.FRONTSIDE,
+                    updatable: true,
+                  },
+                  scene
+                );
+                tubeMesh.setParent(plane.mesh);
+                planes[plane.id] = plane.mesh;
+                plane.mesh.material = planeMat;
+
+                plane.mesh.rotationQuaternion = new Quaternion();
+                plane.transformationMatrix.decompose(
+                  plane.mesh.scaling,
+                  plane.mesh.rotationQuaternion,
+                  plane.mesh.position
+                );
+              } catch (ex) {
+                console.error(ex);
+              }
+            }
+          });
+
           const session = await xr.baseExperience.enterXRAsync(
             'immersive-ar',
             'unbounded',
