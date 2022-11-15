@@ -34,7 +34,7 @@ import {
   Vector3,
   Quaternion
 } from '@babylonjs/core';
-import * as Earcut from 'earcut';
+import earcut from 'earcut';
 
 const EngineScreen: FunctionComponent<ViewProps> = (props: ViewProps) => {
   const engine = useEngine();
@@ -54,54 +54,6 @@ const EngineScreen: FunctionComponent<ViewProps> = (props: ViewProps) => {
           const xr = await scene.createDefaultXRExperienceAsync({
             disableDefaultUI: true,
             disableTeleportation: true,
-          });
-
-          // Do some plane shtuff.
-          const xrPlanes = xr.baseExperience.featuresManager.enableFeature(
-            WebXRFeatureName.PLANE_DETECTION,
-            "latest"
-          ) as WebXRPlaneDetector;
-          console.log("Enabled plane detection.");
-          const planes: any[] = [];
-
-          xrPlanes.onPlaneAddedObservable.add((webXRPlane) => {
-            if (scene) {
-              console.log("Plane added.");
-              let plane: any = webXRPlane;
-              webXRPlane.polygonDefinition.push(
-                webXRPlane.polygonDefinition[0]
-              );
-              try {
-                plane.mesh = MeshBuilder.CreatePolygon(
-                  "plane",
-                  { shape: plane.polygonDefinition },
-                  scene,
-                  Earcut
-                );
-                let tubeMesh: Mesh = TubeBuilder.CreateTube(
-                  "tube",
-                  {
-                    path: plane.polygonDefinition,
-                    radius: 0.005,
-                    sideOrientation: Mesh.FRONTSIDE,
-                    updatable: true,
-                  },
-                  scene
-                );
-                tubeMesh.setParent(plane.mesh);
-                planes[plane.id] = plane.mesh;
-                plane.mesh.material = planeMat;
-
-                plane.mesh.rotationQuaternion = new Quaternion();
-                plane.transformationMatrix.decompose(
-                  plane.mesh.scaling,
-                  plane.mesh.rotationQuaternion,
-                  plane.mesh.position
-                );
-              } catch (ex) {
-                console.error(ex);
-              }
-            }
           });
 
           const session = await xr.baseExperience.enterXRAsync(
@@ -129,8 +81,8 @@ const EngineScreen: FunctionComponent<ViewProps> = (props: ViewProps) => {
   useEffect(() => {
     if (engine) {
       const url =
-        'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/BoxAnimated/glTF/BoxAnimated.gltf';
-      SceneLoader.LoadAsync(url, undefined, engine).then(loadScene => {
+        'https://ipfs.io/ipfs/QmeciRLhTmE7bw5r5h76kqrftuQasXMgnFikx4KmrdGNEm';
+      SceneLoader.LoadAsync(url, undefined, engine, undefined, ".glb").then(loadScene => {
         setScene(loadScene);
         loadScene.createDefaultCameraOrLight(true, undefined, true);
         (loadScene.activeCamera as ArcRotateCamera).alpha += Math.PI;

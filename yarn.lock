@@ -759,31 +759,31 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@^5.20.0":
-  version "5.20.0"
-  resolved "https://registry.npmjs.org/@babylonjs/core/-/core-5.20.0.tgz"
-  integrity sha512-ShYAKIxK9fCsn9oAt9AGWbm2KJ3BFjNIDFXTVxqwOPP0Hd0FdJpkwMZFMvqSfPfD/KmiFH/EPItm7jA8eauQvg==
+"@babylonjs/core@5.17.0":
+  version "5.17.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.17.0.tgz#449308a12e03c10c913f9ab75d9b05ff2ccb1240"
+  integrity sha512-cDB751uEewyZ7NJpyD+eU+jMMdnQ0yP/Cl3ErhZvFCOg/vL4WInQtcACOzkzDabSSFxlbQfBD4bXZ7tfRWPW6g==
   dependencies:
     tslib "^2.4.0"
 
-"@babylonjs/loaders@^5.20.0":
-  version "5.20.0"
-  resolved "https://registry.npmjs.org/@babylonjs/loaders/-/loaders-5.20.0.tgz"
-  integrity sha512-U70fgv9ET+cWMiTOjqARrn4N/X6NCN453e988Vsddlu0a0TbiWOF+fL+CCbKBU42JaJfIuDaUoI0RoCnt2nDZQ==
+"@babylonjs/loaders@5.17.0":
+  version "5.17.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-5.17.0.tgz#4fe9d9346b0da47375333171708ba04e56788e96"
+  integrity sha512-U1yZ+TmLhSs9M6bLa9JMbayoYxrASgwed6VpEAckignNtZfT0ExzTOnrlWx3O0/KVV79BAPl0Rs4JHmqG1tE+g==
   dependencies:
     tslib "^2.4.0"
 
-"@babylonjs/react-native-iosandroid-0-69@^1.3.5":
+"@babylonjs/react-native-iosandroid-0-69@1.3.5":
   version "1.3.5"
-  resolved "https://registry.npmjs.org/@babylonjs/react-native-iosandroid-0-69/-/react-native-iosandroid-0-69-1.3.5.tgz"
+  resolved "https://registry.yarnpkg.com/@babylonjs/react-native-iosandroid-0-69/-/react-native-iosandroid-0-69-1.3.5.tgz#8d2eac78813e9dc683240d10ca2c38f537f87470"
   integrity sha512-dB1vqc5xM/Sl90UKRl2IQ6DtTIi6Gme8IYtoEzICJwaF80Ycdpq5VUl1v5bOi0v+AuunxlA7o7SHSFU67Cn03A==
   dependencies:
     base-64 "^0.1.0"
     semver "^7.3.2"
 
-"@babylonjs/react-native@^1.3.2":
+"@babylonjs/react-native@1.3.5":
   version "1.3.5"
-  resolved "https://registry.npmjs.org/@babylonjs/react-native/-/react-native-1.3.5.tgz"
+  resolved "https://registry.yarnpkg.com/@babylonjs/react-native/-/react-native-1.3.5.tgz#f43578357790911195bcfa8afbc8fc49b4a3a236"
   integrity sha512-ZrF2luPihkmS+YbKaQ3jB2th5RYw7Fn+aRa07UbZsmbIwoXUDA6ZjhdC2vE8OLHyEGlTF21Q6QAvblHBy/fMyQ==
   dependencies:
     base-64 "^0.1.0"
@@ -1391,6 +1391,11 @@
   integrity sha512-v4Vwdko+pgymgS+A2UIaJru93zQd85vIGWObM5ekZNdXCKtDYqATlEYnWgfo86Q6I1Lh0oXnksDnMU1cwmlPDw==
   dependencies:
     "@babel/types" "^7.3.0"
+
+"@types/earcut@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@types/earcut/-/earcut-2.1.1.tgz#573a0af609f17005c751f6f4ffec49cfe358ea51"
+  integrity sha512-w8oigUCDjElRHRRrMvn/spybSMyX8MTkKA5Dv+tS1IE/TgmNZPqUYtvYBXGY8cieSE66gm+szeK+bnbxC2xHTQ==
 
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
